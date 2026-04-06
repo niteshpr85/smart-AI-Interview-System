@@ -4,6 +4,10 @@ AI-powered full-stack interview preparation platform with multi-language support
 
 ## 🚀 Key Features
 
+
+https://github.com/user-attachments/assets/c2bf6b04-0536-44a5-b059-1957946c84c9
+
+
 - **🔐 Complete User Authentication** (Register/Login/Logout with sessions)
 - **🧠 AI Question Generation** (Ollama LLaMA3, role-based, PDF resume upload/parsing)
 - **🎤 Voice Interview** (Speech-to-Text input, real-time transcription)
