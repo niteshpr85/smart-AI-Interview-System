@@ -14,9 +14,17 @@ AI-powered full-stack interview preparation platform with multi-language support
 - **📄 PDF Report** (Download interview summary)
 - **🌐 Multi-Language** (English/Hindi toggle - UI, prompts, feedback)
 - **📱 Responsive UI** (TailwindCSS)
+- 
 
 ## 🛠 Tech Stack
-```
+<img width="1906" height="859" alt="Screenshot 2026-04-06 192642" src="https://github.com/user-attachments/assets/956137ef-1a8e-4bb5-aed1-17aafd07dff3" />
+
+
+```<img width="1895" height="870" alt="Screenshot 2026-04-06 192759" src="https://github.com/user-attachments/assets/f7fd2617-e2b0-4522-b66e-0ef0be27a93d" />
+
+
+<img width="1889" height="493" alt="Screenshot 2026-04-06 192821" src="https://github.com/user-attachments/assets/c555320e-586d-4704-97f2-cfaaa7c13e02" />
+
 Backend: Flask (Python)
 DB: SQLite
 AI: Ollama (llama3 model)
@@ -26,6 +34,11 @@ Media: WebRTC APIs (camera/mic)
 ```
 
 ## 📦 Setup & Run
+
+<img width="1889" height="493" alt="Screenshot 2026-04-06 192821" src="https://github.com/user-attachments/assets/dca6523d-e546-4ef8-bc3a-4c38b64afd32" />
+
+
+<img width="1902" height="867" alt="Screenshot 2026-04-06 193045" src="https://github.com/user-attachments/assets/41d102d4-17d7-44f1-bc51-46451a541d74" />
 
 1. **Virtual Env**
    ```
