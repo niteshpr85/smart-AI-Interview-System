@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AI Interview System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gradient-to-br from-blue-100 via-white to-purple-100 min-h-screen">
+
+<!-- PREMIUM NAVBAR -->
+<nav class="bg-white/70 backdrop-blur-lg shadow-md p-4 flex justify-between items-center rounded-b-2xl mx-4 mt-2">
+
+    <h1 class="font-bold text-xl text-blue-600">🤖 AI Interview</h1>
+
+    <div class="space-x-4 text-gray-700 font-medium">
+        {% if session.get('user') %}
+            <a href="/" class="hover:text-blue-600">Home</a>
+            <a href="/generate" class="hover:text-blue-600">Generate</a>
+            <a href="/interview" class="hover:text-blue-600">Interview</a>
+            <a href="/dashboard" class="hover:text-blue-600">Dashboard</a>
+            <form method="POST" action="/set_lang" class="inline">
+                <button name="lang" value="en" class="hover:text-blue-600 px-2 rounded {{ 'bg-blue-200' if session.get('lang') == 'en' }}">EN</button>
+                <button name="lang" value="hi" class="hover:text-blue-600 px-2 rounded {{ 'bg-blue-200' if session.get('lang') == 'hi' }}">हिं</button>
+            </form>
+            <a href="/logout" class="text-red-500 hover:text-red-700">Logout</a>
+        {% else %}
+            <a href="/login" class="hover:text-blue-600">Login</a>
+            <a href="/register" class="hover:text-blue-600">Register</a>
+        {% endif %}
+    </div>
+
+</nav>
+
+<!-- PAGE CONTENT -->
+<div class="p-6">
+    {% block content %}{% endblock %}
+</div>
+<style>
+body {
+    font-family: 'Poppins', sans-serif;
+}
+</style>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+<div id="loader" class="fixed inset-0 bg-white flex items-center justify-center hidden">
+    <h1 class="text-xl font-bold">Loading...</h1>
+</div>
+<script>
+function showLoader() {
+    document.getElementById("loader").classList.remove("hidden");
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Register</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 flex items-center justify-center h-screen">
+
+<div class="bg-white p-8 rounded-2xl shadow-lg w-80">
+
+    <h2 class="text-xl font-bold mb-4 text-center">Register</h2>
+
+    <form method="POST">
+        <input type="text" name="username" placeholder="Username" 
+        class="w-full p-2 border rounded mb-3" required>
+
+        <input type="password" name="password" placeholder="Password" 
+        class="w-full p-2 border rounded mb-3" required>
+
+        <button class="w-full bg-green-500 text-white p-2 rounded">Register</button>
+    </form>
+
+    <p class="text-center mt-3">
+        <a href="/login" class="text-blue-500">Login here</a>
+    </p>
+
+</div>
+
+</body>
+</html>

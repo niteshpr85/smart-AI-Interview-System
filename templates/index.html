@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="flex items-center justify-between mt-16 px-10">
+
+    <!-- LEFT CONTENT -->
+    <div class="w-1/2">
+
+        <h1 class="text-5xl font-extrabold mb-6 leading-tight">
+            Crack Interviews with <span class="text-blue-600">AI 🚀</span>
+        </h1>
+
+        <p class="text-gray-600 text-lg mb-8">
+            Practice real interview questions, get instant AI feedback, 
+            and boost your confidence like never before.
+        </p>
+
+        {% if session.get('user') %}
+            <a href="/generate" 
+               class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-xl shadow-lg transition duration-300">
+               🚀 Start Interview
+            </a>
+        {% else %}
+            <a href="/login" 
+               class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-xl shadow-lg transition duration-300">
+               🔐 Login to Start
+            </a>
+        {% endif %}
+
+    </div>
+
+    <!-- RIGHT IMAGE -->
+    <div class="w-1/2 flex justify-center">
+
+        <img src="{{ url_for('static', filename='AI.jpg') }}" 
+             class="w-4/5 rounded-2xl shadow-2xl transform hover:scale-105 transition duration-500">
+
+    </div>
+
+</div>
+
+{% endblock %}

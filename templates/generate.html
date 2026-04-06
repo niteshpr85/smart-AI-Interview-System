@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="flex justify-center mt-20">
+
+<form method="POST" class="bg-white p-6 rounded shadow w-80 text-center">
+    <h2 class="mb-4 font-bold">Select Role</h2>
+
+    <select name="role" class="w-full p-2 border mb-4">
+        <option>Java Developer</option>
+        <option>Python Developer</option>
+        <option>Data Analyst</option>
+        <option>Generative AI Engineer</option>
+        <option>Product Manager</option>
+        <option>UX Designer</option>
+        <option>DevOps Engineer</option>
+        <option>Cybersecurity Specialist</option>
+        <option>Cloud Architect</option>
+        <option>Mobile App Developer</option>
+    </select>
+
+    <button class="bg-blue-500 text-white w-full p-2">
+        Generate Questions
+    </button>
+</form>
+<form method="POST" enctype="multipart/form-data">
+    
+    <input type="file" name="resume" class="mb-4">
+
+    <select name="role" class="w-full p-2 border mb-4">
+        <option>Python Developer</option>
+        <option>Java Developer</option>
+        <option>Data Analyst</option>
+        <option>Generative AI Engineer</option>
+        <option>Product Manager</option>
+        <option>UX Designer</option>
+    </select>
+
+    <button class="bg-blue-500 text-white p-2 w-full">
+        Generate Questions
+    </button>
+</form>
+
+</div>
+{% endblock %}

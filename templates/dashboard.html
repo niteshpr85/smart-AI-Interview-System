@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<!-- HEADER -->
+<div class="flex items-center gap-4 mb-6">
+    <img src="{{ url_for('static', filename='dasboard.jpg') }}" 
+         class="w-12 h-12 rounded-full shadow-md">
+
+    <h1 class="text-2xl font-bold text-purple-600">Dashboard Analytics</h1>
+</div>
+
+<!-- STATS -->
+<div class="grid grid-cols-3 gap-6">
+
+    <!-- Questions -->
+    <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl hover:-translate-y-1 transition text-center">
+        <h2 class="text-gray-500 text-sm">Questions</h2>
+        <p class="text-3xl font-bold text-blue-600 mt-2">{{ total_questions }}</p>
+    </div>
+
+    <!-- Answers -->
+    <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl hover:-translate-y-1 transition text-center">
+        <h2 class="text-gray-500 text-sm">Answers</h2>
+        <p class="text-3xl font-bold text-green-600 mt-2">{{ total_answers }}</p>
+    </div>
+
+    <!-- Score -->
+    <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl hover:-translate-y-1 transition text-center">
+        <h2 class="text-gray-500 text-sm">AI Score</h2>
+        <p class="text-3xl font-bold text-purple-600 mt-2">{{ avg_score }}/10</p>
+    </div>
+
+</div>
+
+<!-- PROGRESS BAR -->
+<div class="bg-white p-6 rounded-xl shadow-md mt-6">
+    <h2 class="font-semibold mb-2">Performance</h2>
+
+    <script>
+const scoreElement = document.getElementById("score-data");
+const score = parseInt(scoreElement.dataset.score) || 0;
+
+const progressBar = document.getElementById("progress-bar");
+progressBar.style.width = (score * 10) + "%";
+</script>
+</div>
+
+<!-- CHART -->
+<div class="bg-white p-6 rounded-xl shadow-md mt-6">
+    <h2 class="font-semibold mb-2">Overview</h2>
+
+    <canvas id="myChart"></canvas>
+</div>
+
+<!-- DOWNLOAD -->
+<div class="mt-6">
+    <a href="/download" 
+       class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl shadow-md">
+       📄 Download Report
+    </a>
+</div>
+
+<!-- DATA HOLDER -->
+<div id="chart-data"
+     data-q="{{ total_questions }}"
+     data-a="{{ total_answers }}">
+</div>
+
+<!-- CHART SCRIPT -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+const dataElement = document.getElementById('chart-data');
+
+const q = parseInt(dataElement.dataset.q) || 0;
+const a = parseInt(dataElement.dataset.a) || 0;
+
+const ctx = document.getElementById('myChart').getContext('2d');
+
+new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+        labels: ['Questions', 'Answers'],
+        datasets: [{
+            data: [q, a]
+        }]
+    }
+});
+</script>
+
+{% endblock %}

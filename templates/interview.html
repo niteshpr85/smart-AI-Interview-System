@@ -1,0 +1,141 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<!-- HEADER -->
+<div class="mb-4 text-right">
+    {% if session.get('lang') == 'hi' %}
+    <span class="font-bold text-red-500">⏱ शेष समय: </span>
+    <span id="timer">360</span> सेकंड
+    {% else %}
+    <span class="font-bold text-red-500">⏱ Time Left: </span>
+    <span id="timer">360</span> sec
+    {% endif %}
+</div>
+<div class="flex items-center gap-4 mb-6">
+    <img src="{{ url_for('static', filename='intreview.jpg') }}" 
+         class="w-12 h-12 rounded-full shadow-md">
+<h1 class="text-2xl font-bold text-blue-600">
+    {% if session.get('lang') == 'hi' %}AI साक्षात्कार सत्र{% else %}AI Interview Session{% endif %}
+</h1>
+</div>
+
+<!-- FEEDBACK -->
+{% if feedback %}
+<div class="bg-green-100 border-l-4 border-green-500 p-4 rounded mb-6">
+    <p class="font-semibold">AI Feedback:</p>
+    <p class="mt-1">{{ feedback }}</p>
+</div>
+{% endif %}
+
+<!-- VIDEO INTERVIEW -->
+<div class="bg-white p-4 rounded-xl shadow-md mb-6">
+<h2 class="font-semibold mb-2">
+    {% if session.get('lang') == 'hi' %}🎥 वीडियो साक्षात्कार{% else %}🎥 Video Interview{% endif %}
+</h2>
+    <video id="video" width="300" autoplay 
+           class="rounded-lg border shadow mb-4"></video>
+    <button onclick="startCamera()" 
+            class="bg-blue-500 text-white px-4 py-2 rounded mr-2">
+        Start Camera
+    </button>
+    <button onclick="captureImage()" 
+            class="bg-green-500 text-white px-4 py-2 rounded">
+        📸 Capture
+    </button>
+    <canvas id="canvas" width="300" height="200" class="hidden"></canvas>
+</div>
+
+<!-- QUESTIONS -->
+{% for q in questions %}
+<div class="bg-white p-5 rounded-xl shadow-md hover:shadow-xl hover:-translate-y-1 transition duration-300 mb-6">
+    <!-- Question + Speak -->
+    <div class="flex justify-between items-center mb-3">
+        <p class="font-medium text-gray-800">{{ q[1] }}</p>
+        <button onclick="speakQuestion('{{ q[1] }}')" 
+                class="bg-purple-500 text-white px-3 py-1 rounded hover:bg-purple-600">
+            🔊
+        </button>
+    </div>
+    <!-- Form -->
+    <form method="POST" class="flex gap-2 items-center">
+        <input type="hidden" name="question" value="{{ q[1] }}">
+<input type="text" name="answer" 
+               placeholder="{% if session.get('lang') == 'hi' %}अपना उत्तर लिखें या बोलें...{% else %}Type or speak your answer...{% endif %}" 
+               class="flex-1 border p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-400" 
+               required>
+        <button type="button" onclick="startListening(this)" 
+                class="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600">
+            🎤
+        </button>
+        <button class="bg-green-500 text-white px-4 py-1 rounded hover:bg-green-600">
+            Submit
+        </button>
+    </form>
+</div>
+{% endfor %}
+
+<!-- CONSOLIDATED SCRIPTS -->
+<script>
+let timeLeft = 360;
+const timer = document.getElementById("timer");
+const countdown = setInterval(() => {
+    timeLeft--;
+    timer.innerText = timeLeft;
+    if (timeLeft <= 0) {
+        clearInterval(countdown);
+        alert("⏱ Time's up! Interview ending.");
+    }
+}, 1000);
+</script>
+
+<script>
+// CAMERA
+function startCamera() {
+    navigator.mediaDevices.getUserMedia({ video: true })
+        .then(stream => {
+            document.getElementById("video").srcObject = stream;
+        })
+        .catch(err => {
+            alert("Camera access denied: " + err.message);
+        });
+}
+
+// CAPTURE IMAGE
+function captureImage() {
+    const video = document.getElementById("video");
+    const canvas = document.getElementById("canvas");
+    const ctx = canvas.getContext("2d");
+    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+    alert("{% if session.get('lang') == 'hi' %}📸 छवि कैद!{% else %}📸 Image captured!{% endif %} (Implement /upload_image endpoint if needed)");
+}
+</script>
+
+<script>
+// SPEECH TO TEXT
+function startListening(button) {
+    const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+    recognition.lang = "en-US";
+    recognition.start();
+    recognition.onresult = function(event) {
+        const text = event.results[0][0].transcript;
+        const form = button.closest("form");
+        const input = form.querySelector('input[name="answer"]');
+        input.value = text;
+    };
+    recognition.onerror = function() {
+        alert("Voice recognition failed. Try again.");
+    };
+}
+</script>
+
+<script>
+// TEXT TO SPEECH
+function speakQuestion(text) {
+    const speech = new SpeechSynthesisUtterance(text);
+    speech.lang = "en-US";
+    window.speechSynthesis.speak(speech);
+}
+</script>
+
+{% endblock %}
